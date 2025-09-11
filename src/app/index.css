@@ -31,16 +31,18 @@ body {
   height: 32px;
   gap: 6px;
   justify-content: start;
+  width: 100%;
+  padding: 0 15;
 }
 .container3 {
   display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
   font-size: 14px;
   font-weight: 400;
-  padding: 0 10;
   gap: 10px;
+  height: 62px;
   width: 100%;
 }
 .container4 {
@@ -49,6 +51,7 @@ body {
   gap: 10px;
   justify-content: start;
   align-items: center;
+  width: 100%;
 }
 .container5 {
   display: flex;
@@ -84,6 +87,10 @@ input {
   border-radius: 6px;
   font-size: 14px;
   font-weight: 400;
+  border-color: grey;
+  width: 280px;
+  font-size: 14px;
+  padding: 8 16;
 }
 button {
   background-color: #f3f4f6;
@@ -112,18 +119,11 @@ button {
   color: #3b73ed;
   padding: 0%;
 }
-.button3 {
+.input3 {
   display: flex;
-  background: white;
-  font-size: 12px;
-  padding: 0 6;
+
   height: 20px;
-  cursor: pointer;
-  border: #767676 solid 1px;
-  color: white;
-  justify-content: center;
-  align-items: center;
-  
+  width: 20px;
 }
 .button4 {
   background: #fef2f2;
@@ -132,10 +132,4 @@ button {
   cursor: pointer;
   border: none;
   color: #ef4444;
-}
-input {
-  border-color: grey;
-  width: 280px;
-  font-size: 14px;
-  padding: 8 16;
 }

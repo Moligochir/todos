@@ -2,6 +2,7 @@
 import { useState } from "react";
 import "./index.css";
 import ShortUniqueId from "short-unique-id";
+import { Rethink_Sans } from "next/font/google";
 
 export default function Home() {
   const [state, setState] = useState();
@@ -19,8 +20,16 @@ export default function Home() {
   const handleChangeAllButton2 = () => {
     setState("Completed");
   };
-  const handleChangeAllButton3 = () => {
-    setState("x");
+  const filteredTodo = () => {
+    return todos.filter((todo) => {
+      if (state === "Active") {
+        return todo.status === "Active";
+      } else if (state === "Completed") {
+        return todo.status === "Completed";
+      } else {
+        return true;
+      }
+    });
   };
 
   const uid = new ShortUniqueId();
@@ -41,6 +50,15 @@ export default function Home() {
   console.log("this is input value", inputValue);
   console.log("this is todos now", todos);
 
+  function handleCheckboxChange(checkboxElement) {
+    if (checkboxElement.checked) {
+      console.log("Checkbox is checked!");
+      // Perform actions when checked
+    } else {
+      console.log("Checkbox is unchecked!");
+      // Perform actions when unchecked
+    }
+  }
   return (
     <div className="container">
       <h1 className="header">To-Do List</h1>
@@ -48,7 +66,7 @@ export default function Home() {
         <input
           placeholder="Add a new task..."
           onChange={handleInputValue}
-
+          value={inputValue}
         ></input>
         <button className="button1" onClick={handleAddButton}>
           Add
@@ -83,29 +101,28 @@ export default function Home() {
           Completed
         </button>
       </div>
-      <div className="container3">
-        {todos.map((todo) => {
-          return (
-            <div className="container2">
-              <button 
-                className="button3"
-                onClick={handleChangeAllButton3}
-                style={{
-                  backgroundColor: state === "x" ? "#3c82f6" : "#f9f9f9",
-                  color: state === "x" ? "#f9f9f9" : "white",
-                }} 
-              >
-                x
-              </button>
-              {todo.todos}
-              
-            </div>
-          );
-        })}
-      </div>  <button className="button4">Delete</button>
 
-      <h2 className="header1">No tasks yet. Add one above!</h2>
-      
+      {todos.length == 0 ? (
+        <h2 className="header1">No tasks yet. Add one above!</h2>
+      ) : (
+        <div style={{ width: "100%", padding: "15px" }}>
+          {todos.map((todo) => {
+            return (
+              <div className="container3" key={todo.id}>
+                <input
+                  className="input3"
+                  type="checkbox"
+                  id="myCheckbox"
+                  onchange="handleCheckboxChange()"
+                ></input>
+                <div className="container4"> {todo.todos}</div>
+                {<button className="button4">Delete</button>}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <div className="container5">
         <h3 className="header2">Powered by</h3>
         <button className="button2">Pinecone academy</button>
