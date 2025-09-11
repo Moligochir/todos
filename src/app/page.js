@@ -48,6 +48,7 @@ export default function Home() {
         <input
           placeholder="Add a new task..."
           onChange={handleInputValue}
+
         ></input>
         <button className="button1" onClick={handleAddButton}>
           Add
@@ -82,29 +83,30 @@ export default function Home() {
           Completed
         </button>
       </div>
-
-      <h2 className="header1">No tasks yet. Add one above!</h2>
       <div className="container3">
         {todos.map((todo) => {
           return (
-            <div>
-              <button
+            <div className="container2">
+              <button 
                 className="button3"
                 onClick={handleChangeAllButton3}
                 style={{
                   backgroundColor: state === "x" ? "#3c82f6" : "#f9f9f9",
                   color: state === "x" ? "#f9f9f9" : "white",
-                }}
+                }} 
               >
                 x
               </button>
               {todo.todos}
-              <button className="button4">Delete</button>
+              
             </div>
           );
         })}
-      </div>
-      <div>
+      </div>  <button className="button4">Delete</button>
+
+      <h2 className="header1">No tasks yet. Add one above!</h2>
+      
+      <div className="container5">
         <h3 className="header2">Powered by</h3>
         <button className="button2">Pinecone academy</button>
       </div>
