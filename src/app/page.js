@@ -20,17 +20,18 @@ export default function Home() {
   const handleChangeAllButton2 = () => {
     setState("Completed");
   };
-  const filteredTodo = () => {
-    return todos.filter((todo) => {
-      if (state === "Active") {
-        return todo.status === "Active";
-      } else if (state === "Completed") {
-        return todo.status === "Completed";
-      } else {
-        return true;
-      }
-    });
-  };
+  const filteredTodo = todos.filter((todo) => {
+    if (state === "Active") {
+      return todo.status === "Active";
+    } else if (state === "Completed") {
+      return todo.status === "Completed";
+    } else {
+      return true;
+    }
+  });
+  const completedTodoArray = todos.filter((todo) => {
+    return todo.status === "Completed";
+  });
 
   const uid = new ShortUniqueId();
 
@@ -46,19 +47,19 @@ export default function Home() {
     ]);
     setInputValue("");
   };
-  console.log("this is state value", state);
-  console.log("this is input value", inputValue);
-  console.log("this is todos now", todos);
 
-  function handleCheckboxChange(checkboxElement) {
-    if (checkboxElement.checked) {
-      console.log("Checkbox is checked!");
-      // Perform actions when checked
-    } else {
-      console.log("Checkbox is unchecked!");
-      // Perform actions when unchecked
-    }
-  }
+  const handleCheckboxChange = (id) => {
+    const checkedTodo = todos.map((item) =>
+      item.id == id
+        ? { ...item, status: item.status == "Active" ? "Completed" : "Active" }
+        : item
+    );
+    setTodos(checkedTodo);
+  };
+  // console.log("this is state value", state);
+  // console.log("this is input value", inputValue);
+  // console.log("this is todos now", todos);
+
   return (
     <div className="container">
       <h1 className="header">To-Do List</h1>
@@ -101,30 +102,43 @@ export default function Home() {
           Completed
         </button>
       </div>
-
       {todos.length == 0 ? (
         <h2 className="header1">No tasks yet. Add one above!</h2>
       ) : (
         <div style={{ width: "100%", padding: "15px" }}>
-          {todos.map((todo) => {
+          {filteredTodo.map((todo) => {
             return (
               <div className="container3" key={todo.id}>
                 <input
                   className="input3"
                   type="checkbox"
                   id="myCheckbox"
-                  onchange="handleCheckboxChange()"
+                  checked={todo.status == "Completed" ? true : false}
+                  onChange={() => handleCheckboxChange(todo.id)}
                 ></input>
                 <div className="container4"> {todo.todos}</div>
-                {<button className="button4">Delete</button>}
+                {todo.status === "Completed" && (
+                  <button className="button4">Delete</button>
+                )}
               </div>
             );
           })}
+          <div className="container6">
+            <h3 className="header2">
+              {completedTodoArray.length} of {todos.length} tasks completed
+            </h3>
+            <button
+              style={{ background: "none", padding: "0" }}
+              className="button4"
+            >
+              Clear completed
+            </button>
+          </div>
         </div>
       )}
 
       <div className="container5">
-        <h3 className="header2">Powered by</h3>
+        <h4 className="header2">Powered by</h4>
         <button className="button2">Pinecone academy</button>
       </div>
     </div>
